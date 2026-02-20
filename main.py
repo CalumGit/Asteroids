@@ -18,6 +18,9 @@ def main():
     clock = pygame.time.Clock()
     dt = 0
 
+    score = 0
+    font = pygame.font.SysFont(None, 36)
+
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
     updatable = pygame.sprite.Group()
@@ -58,11 +61,21 @@ def main():
                     log_event("asteroid_shot")
                     asteroid.split()
                     shot.kill()
+                    if asteroid.radius > 40:
+                        score += 20
+                    if asteroid.radius > 20:
+                        score += 50
+                    else:
+                        score += 100
 
         screen.fill("black")
 
         for obj in drawable:
             obj.draw(screen)
+
+#Displays Score on Screen
+        score_surface = font.render(f"Score: {score}", True, "white")
+        screen.blit(score_surface, (10, 10))
 
         pygame.display.flip()
         dt = clock.tick(60) / 1000
