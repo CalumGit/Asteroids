@@ -72,3 +72,9 @@ class Player(CircleShape):
         direction = direction.rotate(self.rotation)
         direction *= PLAYER_SHOT_SPEED
         shot.velocity = direction
+
+
+    def handle_event(self, event):
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                self.shoot()
